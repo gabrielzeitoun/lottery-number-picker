@@ -1,14 +1,28 @@
 const form = document.getElementById('form');
 
-let number_ball_div = document.createElement("div");
-number_ball_div.setAttribute("class", "bg-success text-white rounded-circle p-3 text-center fs-3");
+const number_ball_div = document.createElement('div');
+number_ball_div.setAttribute(
+  'class',
+  'bg-success text-white rounded-circle p-3 text-center fs-3'
+);
 
 // prevent reload on click
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  document.getElementById('number-container-parent').classList.remove('hidden');
 
-	document.getElementById("number-container").innerHTML = '';
+  if (
+    min > max ||
+    (max - min + 1 < total && !allow_repeat) ||
+    min < 0 ||
+    max < 0 ||
+    total < 0
+  ) {
+    alert('ERROR: invalid input');
+    return;
+  }
+
+  document.getElementById('number-container-parent').classList.remove('hidden');
+  document.getElementById('number-container').innerHTML = '';
 
   const formData = new FormData(form);
 
@@ -17,16 +31,11 @@ form.addEventListener('submit', (event) => {
   const max = formData.get('max-number');
   const allow_repeat = formData.get('repeat-numbers-allowed');
 
-	if ((min > max) || (max - min + 1 < total && !allow_repeat) || min < 0 || max < 0 || total < 0) {
-		alert("ERROR: invalid input");
-		return;
-	}
-
   let numbers = [];
   for (let i = 0; i < total; ++i) {
     let number = getRandomInt(min, max);
 
-  	let ok = false;
+    let ok = false;
     while (!ok) {
       if (!allow_repeat && numbers.includes(number)) {
         number = getRandomInt(min, max);
@@ -35,13 +44,13 @@ form.addEventListener('submit', (event) => {
       }
     }
 
-		numbers.push(number);
+    numbers.push(number);
   }
 
   for (number of numbers) {
-		let ball = number_ball_div.cloneNode();
-		ball.innerText = number.toString();
-		document.getElementById("number-container").appendChild(ball);
+    const ball = number_ball_div.cloneNode();
+    ball.innerText = number.toString();
+    document.getElementById('number-container').appendChild(ball);
   }
 });
 
