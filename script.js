@@ -10,6 +10,13 @@ number_ball_div.setAttribute(
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
+  const formData = new FormData(form);
+
+  const total = formData.get('numbers-required');
+  const min = formData.get('min-number');
+  const max = formData.get('max-number');
+  const allow_repeat = formData.get('repeat-numbers-allowed');
+
   if (
     min > max ||
     (max - min + 1 < total && !allow_repeat) ||
@@ -23,13 +30,6 @@ form.addEventListener('submit', (event) => {
 
   document.getElementById('number-container-parent').classList.remove('hidden');
   document.getElementById('number-container').innerHTML = '';
-
-  const formData = new FormData(form);
-
-  const total = formData.get('numbers-required');
-  const min = formData.get('min-number');
-  const max = formData.get('max-number');
-  const allow_repeat = formData.get('repeat-numbers-allowed');
 
   let numbers = [];
   for (let i = 0; i < total; ++i) {
