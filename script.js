@@ -3,7 +3,7 @@ const form = document.getElementById('form');
 const number_ball_div = document.createElement('div');
 number_ball_div.setAttribute(
   'class',
-  'bg-success text-white rounded-circle p-3 text-center fs-3'
+  'bg-warning text-white rounded-circle p-3 text-center fs-3'
 );
 
 // prevent reload on click
